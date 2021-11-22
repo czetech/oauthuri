@@ -1,0 +1,44 @@
+{
+  "name": "oauthuri",
+  "version": "1.0.0",
+  "description": "A redirection of OAuth2 response to any URL.",
+  "keywords": [
+    "oauth",
+    "oauth2",
+    "redirect"
+  ],
+  "homepage": "https://oauthuri.cze.tech/",
+  "bugs": "https://github.com/czetech/lightdevops/issues",
+  "license": "MIT",
+  "author": {
+    "name": "Petr Czepiec",
+    "email": "petr@czepiec.me",
+    "url": "https://czepiec.me/"
+  },
+  "files": [
+    "dist/",
+    "oauthuri.js"
+  ],
+  "main": "oauthuri.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/czetech/oauthuri.git"
+  },
+  "scripts": {
+    "build": "webpack",
+    "build:dev": "webpack --node-env=development",
+    "build:prod": "webpack --node-env=production",
+    "watch": "webpack --watch",
+    "clean": "rm -rf dist",
+    "prepack": "npm run build:prod"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.0",
+    "babel-loader": "^8.2.3",
+    "webpack": "^5.64.1",
+    "webpack-cli": "^4.9.1"
+  },
+  "type": "module",
+  "unpkg": "dist/oauthuri.js"
+}

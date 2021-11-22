@@ -1,0 +1,12 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ include "oauthuri.fullname" . }}-config
+  annotations:
+    {{- toYaml .Values.config.annotations | nindent 4 }}
+  labels:
+    {{- include "oauthuri.labels" . | nindent 4 }}
+    app.kubernetes.io/component: config
+data:
+  config.json: |
+    {{- tpl (.Files.Get "config/config.json") . | nindent 4 }}

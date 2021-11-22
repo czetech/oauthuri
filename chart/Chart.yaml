@@ -1,0 +1,18 @@
+apiVersion: v2
+name: oauthuri
+version: 1.0.0
+kubeVersion: ">= 1.14.0-0"
+description: A redirection of OAuth2 response to any URL.
+type: application
+keywords:
+- oauth
+- oauth2
+- redirect
+home: https://oauthuri.cze.tech/
+sources:
+- https://github.com/czetech/oauthuri
+maintainers:
+- name: Petr Czepiec
+  email: petr@czepiec.me
+  url: https://czepiec.me/
+appVersion: 1.0.0

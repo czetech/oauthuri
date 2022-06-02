@@ -1,0 +1,6 @@
+{
+  "redirectUri": {{ toJson .Values.redirectUri }},
+  "responseMode": {{ toJson .Values.responseMode }},
+  "keyRedirectUri": {{ toJson .Values.keyRedirectUri }},
+  "keyResponseMode": {{ toJson .Values.keyResponseMode }}
+}

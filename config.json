@@ -1,0 +1,6 @@
+{
+  "redirectUri": null,
+  "responseMode": "query",
+  "keyRedirectUri": "redirect_uri",
+  "keyResponseMode": "response_mode"
+}

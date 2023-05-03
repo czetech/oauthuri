@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <meta charset="utf-8" />
+  <title>oAuth2 redirect</title>
+  <script src="oauthuri.js"></script>
+  <script>
+    function errorHandler(message) {
+      console.error(message);
+      document.body.textContent = message;
+    }
+
+    function redirect(config) {
+      const oAuthURI = new OAuthURI(
+        config.redirectUri,
+        config.responseMode,
+        config.keyRedirectUri,
+        config.keyResponseMode,
+        errorHandler
+      );
+      oAuthURI.redirect();
+    }
+
+    document.addEventListener("DOMContentLoaded", (event) => {
+      fetch("config.json")
+        .then((response) => response.json())
+        .then((config) => redirect(config));
+    });
+  </script>
+</html>

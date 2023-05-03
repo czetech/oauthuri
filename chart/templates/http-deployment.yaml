@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "oauthuri.fullname" . }}-http
+  annotations:
+    {{- toYaml .Values.http.annotations | nindent 4 }}
+  labels:
+    {{- include "oauthuri.labels" . | nindent 4 }}
+    app.kubernetes.io/component: http
+spec:
+  replicas: {{ toYaml .Values.http.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "oauthuri.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: http
+  template:
+    metadata:
+      annotations:
+        checksum/config-configmap: {{ include (print .Template.BasePath "/config-configmap.yaml") . | sha256sum }}
+        {{- if .Values.http.podAnnotations }}
+        {{- toYaml .Values.http.podAnnotations | nindent 8 }}
+        {{- end }}
+      labels:
+        {{- include "oauthuri.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: http
+    spec:
+      containers:
+      - name: oauthuri
+        image: {{ toYaml (print .Values.image.repository ":" .Values.image.tag) }}
+        imagePullPolicy: {{ toYaml .Values.image.pullPolicy }}
+        ports:
+        - name: http
+          containerPort: 80
+        lifecycle:
+          {{- toYaml .Values.http.lifecycle | nindent 10 }}
+        resources:
+          {{- toYaml .Values.http.resources | nindent 10 }}
+        volumeMounts:
+        - name: config
+          mountPath: /app/config.json
+          subPath: config.json
+      affinity:
+        {{- toYaml .Values.http.affinity | nindent 8 }}
+      imagePullSecrets:
+        {{- toYaml .Values.imagePullSecrets | nindent 8 }}
+      nodeSelector:
+        {{- toYaml .Values.http.nodeSelector | nindent 8 }}
+      tolerations:
+        {{- toYaml .Values.http.tolerations | nindent 8 }}
+      volumes:
+      - name: config
+        configMap:
+          name: {{ include "oauthuri.fullname" . }}-config

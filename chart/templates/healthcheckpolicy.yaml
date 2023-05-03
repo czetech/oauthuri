@@ -1,0 +1,12 @@
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: {{ include "oauthuri.fullname" . }}
+spec:
+  default:
+    config:
+      type: HTTP
+  targetRef:
+    group: ""
+    kind: Service
+    name: {{ include "oauthuri.fullname" . }}-http
